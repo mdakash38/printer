@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26334a">
+  <title>Print Record Manager | Md. Akash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar no-print">
+  <div><h1>Print Record Manager</h1><p>Printing &amp; Binding · Created by Md. Akash</p></div>
+  <div class="top-actions">
+    <span id="connectionStatus" class="status">Connecting…</span>
+    <button class="btn btn-light" id="exportBtn">Backup</button>
+    <button class="btn btn-light" id="importBtn">Restore</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
+  </div>
+</header>
+
+<main class="layout no-print">
+  <section class="card editor">
+    <div class="section-heading">
+      <div><h2 id="formTitle">Create New Receipt</h2></div>
+      <span class="serial-badge" id="serialBadge">PR-0001</span>
+    </div>
+
+    <div class="form-grid">
+      <div class="field"><label for="printer">Printer / Shop Name</label><input id="printer" value="Md. Akash Mia"></div>
+      <div class="field"><label for="customer">Customer Name</label><input id="customer" placeholder="Enter customer name"></div>
+      <div class="field"><label for="receiptDate">Receipt Date</label><input type="date" id="receiptDate"></div>
+      <div class="field"><label for="serial">Serial Number</label><input id="serial" readonly></div>
+    </div>
+
+    <div class="work-heading"><h2>Work Details</h2><button class="btn btn-outline" id="addItem">＋ Add Work</button></div>
+    <p class="pricing-hint">Printing: ৳3/page (1–50), ৳2.80/page (over 50) · Binding: ৳35 each · Other: enter amount.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Date</th><th>Work Type</th><th>Description</th><th>Pages / Qty</th><th>Amount (৳)</th><th></th></tr></thead>
+        <tbody id="itemsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="total-box"><span>Total Amount</span><strong id="total">৳ 0.00</strong></div>
+    <div class="field notes-field"><label for="notes">Note (optional)</label><input id="notes" placeholder="Add note"></div>
+    <div class="main-actions">
+      <button class="btn btn-primary" id="saveBtn">Save Receipt</button>
+      <button class="btn btn-gold" id="pdfBtn">Save / Print PDF</button>
+      <button class="btn btn-muted" id="resetBtn">New Receipt</button>
+    </div>
+  </section>
+
+  <aside class="card history-card">
+    <div class="section-heading"><h2>Previous Receipts</h2><span class="count-pill" id="count">0</span></div>
+    <div class="auth-panel">
+      <div class="field"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="username" placeholder="Email"></div>
+      <div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Your password"></div>
+      <div class="auth-actions"><button class="btn btn-primary" id="authBtn">Sign In</button><button class="btn btn-muted" id="signOutBtn" hidden>Sign Out</button></div>
+    </div>
+    <div class="field"><input id="search" placeholder="Search receipts…"></div>
+    <div id="history" class="history-list"><div class="empty">Loading records…</div></div>
+  </aside>
+</main>
+
+<section id="receiptPreview">
+  <div class="print-paper">
+    <div class="print-title">Print Record</div><div class="print-title-rule"></div>
+    <div class="print-meta">
+      <span class="meta-label">Printer</span><span>:</span><span id="pPrinter"></span>
+      <span class="meta-label">Customer</span><span>:</span><span id="pCustomer"></span>
+      <span class="meta-label">Receipt No.</span><span>:</span><span id="pSerial"></span>
+      <span class="meta-label">Date</span><span>:</span><span id="pDate"></span>
+    </div>
+    <div class="print-divider"></div>
+    <div id="pRows" class="print-rows"></div>
+    <div class="print-divider"></div>
+    <div class="print-total"><span>Total</span><strong id="pTotal"></strong></div>
+    <div id="pNotes" class="print-notes"></div>
+    <div class="thank-you">Thank You</div><div class="thank-you-rule"></div>
+  </div>
+</section>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
